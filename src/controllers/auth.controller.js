@@ -95,6 +95,10 @@ export const login = async (req, res) => {
     console.error("Error in login controller:", error);
     res.status(500).json({ message: "Internal server error" });
   }
+  console.log("LOGIN BODY:", req.body);
+console.log("EMAIL:", req.body.email);
+console.log("PASSWORD:", req.body.password);
+
 };
 
 export const logout = (_, res) => {
@@ -121,5 +125,67 @@ export const updateProfile = async (req, res) => {
   } catch (error) {
     console.log("Error in update profile:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+export const authCheckController = async (req, res) => {
+  try {
+    // req.user must be set by auth middleware
+    if (!req.user) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+
+    res.status(200).json({
+      _id: req.user._id,
+      fullName: req.user.fullName,
+      email: req.user.email,
+      profilePic: req.user.profilePic,
+    });
+  } catch (error) {
+    console.log("Error in auth check controller:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+export const checkAuth = (req, res) => {
+  res.status(200).json(req.user);
+};
+export const getUnreadCounts = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const unread = await Message.aggregate([
+      {
+        $match: {
+          receiverId: userId,
+          seen: false,
+        },
+      },
+      {
+        $group: {
+          _id: "$senderId",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    res.status(200).json(unread);
+  } catch (error) {
+    console.error("Unread count error:", error);
+    res.status(500).json({ message: "Error fetching unread counts" });
+  }
+};
+export const markMessagesAsSeen = async (req, res) => {
+  try {
+    await Message.updateMany(
+      {
+        senderId: req.params.senderId,
+        receiverId: req.user._id,
+        seen: false,
+      },
+      { seen: true }
+    );
+
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating messages" });
   }
 };

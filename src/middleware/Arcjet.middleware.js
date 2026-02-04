@@ -5,7 +5,7 @@ export const arjectProtection = async (res , req , next  ) => {
     try {
         const decision  = await aj.protect(req) ;
         if(decision.isDenied()) {
-            if(decision.reason.isRatelimt() ) {
+            if(decision.reason.isRateLimit() ) {
                 return res.status(429).json({message:"Rate limit exceeded "}) ;
             }
          else if (decision.reason.isBot()) {

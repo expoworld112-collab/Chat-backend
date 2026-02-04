@@ -4,15 +4,20 @@ import {
 getallContacts ,
 getMessagesByUserId,
 sendMessage ,
-getChatPartners
+getUserChats,
+getChatPartners,
+getUnreadCounts,
+markMessagesAsSeen
 
 } from "../controllers/message.controllers.js";
+
 import { arjectProtection } from "../middleware/Arcjet.middleware.js";
 const messageRoutes = express.Router() ;
 
 //these will run in serial order 
 
 messageRoutes.use(arjectProtection , protectRoute) ;
+messageRoutes.get("/unread", protectRoute, getUnreadCounts);
 
 messageRoutes.get("/contacts" , getallContacts) ;
 
@@ -20,7 +25,8 @@ messageRoutes.get("/chats" , getChatPartners) ;
 
 messageRoutes.get("/:id" ,getMessagesByUserId) ;
 
-
-messageRoutes.get("/send/:id"  , sendMessage) ;
+messageRoutes.get("/chats", protectRoute, getUserChats);
+messageRoutes.post("/send/:id"  , sendMessage) ;
+messageRoutes.put("/mark-seen/:senderId", protectRoute, markMessagesAsSeen);
 
 export default messageRoutes;
