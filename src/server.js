@@ -9,6 +9,9 @@ import messageRoutes from "./routes/message.route.js";
 import authRoutes from "./routes/auth.route.js";
 import cors from "cors";
 import { arjectProtection } from "./middleware/Arcjet.middleware.js";
+import friendRequestRoutes from "./routes/friendRequestRoutes.js";
+
+
 const __dirname = path.resolve();
 const PORT = ENV.PORT || 3000;
 app.use(express.json(
@@ -37,6 +40,9 @@ app.set("trust proxy", 1);
 
 app.use("/api/auth" , authRoutes) ;
 app.use("/api/messages", messageRoutes) ;
+app.use("/api/friends", friendRequestRoutes);
+
+
 
 // if (ENV.NODE_ENV === "production" ) {
 //     app.use (express.static ( path. join ( __dirname , "../frontend/dist " ) ) ) ;

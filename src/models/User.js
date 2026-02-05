@@ -16,6 +16,8 @@ const UserSchema = new mongoose.Schema ({
     minlength: 6 ,
 
 },
+ friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+
 profilePic : {
     type : String ,
     default : "",
