@@ -7,26 +7,37 @@ sendMessage ,
 getUserChats,
 getChatPartners,
 getUnreadCounts,
-markMessagesAsSeen
+markMessagesAsSeen,
 
 } from "../controllers/message.controllers.js";
-
+import multer from "multer" ;
 import { arjectProtection } from "../middleware/Arcjet.middleware.js";
 const messageRoutes = express.Router() ;
-
-//these will run in serial order 
+const upload = multer({dest: "uploads/"}) ;
 
 messageRoutes.use(arjectProtection , protectRoute) ;
-messageRoutes.get("/unread", protectRoute, getUnreadCounts);
-
+//meta
+messageRoutes.get("/unread",  getUnreadCounts);
+//contacts and chats
 messageRoutes.get("/contacts" , getallContacts) ;
+messageRoutes.get("/chats", getUserChats);
 
-messageRoutes.get("/chats" , getChatPartners) ;
+//send message and text file
+messageRoutes.post(
+  "/send/:id",
+  upload.single("file"),
+ sendMessage
+);
+//mark seen
+messageRoutes.put("/mark-seen/:senderId",  markMessagesAsSeen);
 
+messageRoutes.get("/chats" ,  getChatPartners) ;
+//message keep last
 messageRoutes.get("/:id" ,getMessagesByUserId) ;
 
-messageRoutes.get("/chats", protectRoute, getUserChats);
-messageRoutes.post("/send/:id"  , sendMessage) ;
-messageRoutes.put("/mark-seen/:senderId", protectRoute, markMessagesAsSeen);
+
+
+
+
 
 export default messageRoutes;

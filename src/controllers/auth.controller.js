@@ -77,7 +77,8 @@ export const login = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Invalid credentials" });
+    if (!user) {return res.status(400).json({ message: "Invalid credentials" });
+    } 
     // never tell the client which one is incorrect: password or email
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
@@ -106,27 +107,51 @@ export const logout = (_, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 };
 
-export const updateProfile = async (req, res) => {
+// export const updateProfile = async (req, res) => {
+//   try {
+//     const { profilePic } = req.body;
+//     if (!profilePic) return res.status(400).json({ message: "Profile pic is required" });
+
+//     const userId = req.user._id;
+
+//     const uploadResponse = await cloudinary.uploader.upload(profilePic);
+
+//     const updatedUser = await User.findByIdAndUpdate(
+//       userId,
+//       { profilePic: uploadResponse.secure_url },
+//       { new: true }
+//     );
+
+//     res.status(200).json(updatedUser);
+//   } catch (error) {
+//     console.log("Error in update profile:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+ export const updateProfile = async (req, res) => {
   try {
-    const { profilePic } = req.body;
-    if (!profilePic) return res.status(400).json({ message: "Profile pic is required" });
+    if (!req.file) {
+      return res.status(400).json({ message: "Profile picture required" });
+    }
 
-    const userId = req.user._id;
-
-    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+    const uploadRes = await cloudinary.uploader.upload(req.file.path, {
+      folder: "chat-app/profile",
+    });
 
     const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { profilePic: uploadResponse.secure_url },
+      req.user._id,
+      { profilePic: uploadRes.secure_url }, 
       { new: true }
-    );
+    ).select("-password");
 
     res.status(200).json(updatedUser);
   } catch (error) {
-    console.log("Error in update profile:", error);
+    console.error("Update profile error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
 export const authCheckController = async (req, res) => {
   try {
     // req.user must be set by auth middleware
