@@ -36,6 +36,7 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/friends", friendRequestRoutes);
+app.use("/api/users" , userRoutes);
 app.get("/", (req, res) => {
   res.send("Backend running 🚀");
 });
