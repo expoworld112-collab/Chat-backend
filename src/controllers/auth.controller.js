@@ -106,9 +106,6 @@ console.log("PASSWORD:", req.body.password);
 
 };
 
-  console.log("LOGIN BODY:", req.body);
-console.log("EMAIL:", req.body.email);
-console.log("PASSWORD:", req.body.password);
 
 export const logout = (_, res) => {
   res.cookie("jwt", "", { maxAge: 0 });
