@@ -38,7 +38,7 @@ app.use("/api", protectRoute) ;
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/friends", friendRequestRoutes);
-app.use("/api/users" , userRoutes);
+// app.use("/api/users" , userRoutes); not needed as i get getuser chats from message controller
 app.get("/", (req, res) => {
   res.send("Backend running 🚀");
 });

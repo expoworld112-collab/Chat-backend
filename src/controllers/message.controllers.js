@@ -208,12 +208,13 @@ export const getUserChats = async (req, res) => {
             $project: {
                 _id: 0 ,
                 userId: "$user._id" ,
-                username: "$user.profilePic",
-                lastMessage: 1 , 
+username: "$user.username",
+profilePic: "$user.profilePic",            
+    lastMessage: 1 , 
                 lastMessageTime: 1
             }
         },
-         {$sort: {lastMessageTIme:-1}}
+         {$sort: {lastMessageTime:-1}}
 
       
     ]);
