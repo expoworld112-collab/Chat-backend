@@ -33,6 +33,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // ───────────────────────── routes ─────────────────────────
+app.use("/api",protectRoute) ;
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/friends", friendRequestRoutes);
