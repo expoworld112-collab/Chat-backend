@@ -15,6 +15,8 @@ import mongoose from "mongoose";
 import { protectRoute } from "./middleware/auth.middleware.js";
 
 const app = express();
+ app.set("trust proxy", 1);
+
 const server = http.createServer(app);
 
 
