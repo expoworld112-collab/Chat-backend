@@ -34,10 +34,10 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // ───────────────────────── routes ─────────────────────────
-app.use("/api", protectRoute) ;
+// app.use("/api", protectRoute) ; we ccut it because its breaking login also it should be added in auth routes only
 app.use("/api/auth", authRoutes);
-app.use("/api/messages", messageRoutes);
-app.use("/api/friends", friendRequestRoutes);
+app.use("/api/messages", protectRoute, messageRoutes);
+app.use("/api/friends",  protectRoute, friendRequestRoutes);
 // app.use("/api/users" , userRoutes); not needed as i get getuser chats from message controller
 app.get("/", (req, res) => {
   res.send("Backend running 🚀");
