@@ -31,7 +31,7 @@ messageRoutes.post(
 //mark seen
 messageRoutes.put("/mark-seen/:senderId",  markMessagesAsSeen);
 
-messageRoutes.get("/chats" ,  getChatPartners) ;
+messageRoutes.get("/chats-partners" ,  getChatPartners) ;
 //message keep last
 messageRoutes.get("/:id" ,getMessagesByUserId) ;
 

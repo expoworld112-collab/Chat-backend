@@ -5,7 +5,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { ENV } from "../lib/env.js";
 import cloudinary from "../lib/cloudinary.js";
-
+import Message from "../models/message.js";
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
 
@@ -96,11 +96,15 @@ export const login = async (req, res) => {
     console.error("Error in login controller:", error);
     res.status(500).json({ message: "Internal server error" });
   }
+//   console.log("LOGIN BODY:", req.body);
+// console.log("EMAIL:", req.body.email);
+// console.log("PASSWORD:", req.body.password);
+
+};
+
   console.log("LOGIN BODY:", req.body);
 console.log("EMAIL:", req.body.email);
 console.log("PASSWORD:", req.body.password);
-
-};
 
 export const logout = (_, res) => {
   res.cookie("jwt", "", { maxAge: 0 });

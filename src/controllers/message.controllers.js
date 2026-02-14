@@ -135,6 +135,7 @@ export const sendMessage = async (req, res) => {
       fileUrl,
       fileType,
     });
+    
 
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {
@@ -206,7 +207,7 @@ export const getUserChats = async (req, res) => {
         {
             $project: {
                 _id: 0 ,
-                userId: "$user.id" ,
+                userId: "$user._id" ,
                 username: "$user.profilePic",
                 lastMessage: 1 , 
                 lastMessageTime: 1
