@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import Message from "../models/message.js";
 import cloudinary from "../lib/cloudinary.js";
 import  {io , getReceiverSocketId} from "../lib/socket.js";
-
+import fs from "fs";
 export const getallContacts = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
@@ -126,6 +126,7 @@ export const sendMessage = async (req, res) => {
 
       fileUrl = upload.secure_url;
       fileType = file.mimetype;
+      fs.unlikeSync(file.path) ;
     }
 
     const message = await Message.create({
@@ -227,7 +228,6 @@ profilePic: "$user.profilePic",
   }
 };
 
-// GET /api/messages/unread
 export const getUnreadCounts = async (req, res) => {
   try {
     const userId = req.user._id;

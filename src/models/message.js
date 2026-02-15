@@ -19,20 +19,22 @@ const messageSchema = new Schema(
       trim: true,
       maxlength: 2000,
     },
-    image: {
+    fileUrl: {
       type: String,
     },
     seen: {
   type: Boolean,
   default: false,
 },
-file: String,
-  fileType: String,
+fileType: {
+  type: String,
 
-  },
+  },},
   { timestamps: true }
 );
 
+messageSchema.index({ senderId: 1, receiverId: 1 });
+messageSchema.index({ receiverId: 1, seen: 1 });
 const Message = mongoose.model("Message", messageSchema);
 
 export default Message;
