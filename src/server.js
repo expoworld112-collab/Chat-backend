@@ -11,18 +11,14 @@ import { initSocket } from "./lib/socket.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import friendRequestRoutes from "./routes/friendRequestRoutes.js";
-import mongoose from "mongoose";
 import { protectRoute } from "./middleware/auth.middleware.js";
 
 const app = express();
- app.set("trust proxy", 1);
-
 const server = http.createServer(app);
-
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+ app.set("trust proxy", 1);
 
 app.use(cors({
   origin: ENV.CLIENT_URL || "http://localhost:5173",
@@ -30,7 +26,7 @@ app.use(cors({
 }));
 
 // ───────────────────────── middleware ─────────────────────────
-app.use(express.json({ limit: "5mb" }));
+app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
@@ -41,7 +37,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", protectRoute, messageRoutes);
 app.use("/api/friends",  protectRoute, friendRequestRoutes);
 // app.use("/api/users" , userRoutes); not needed as i get getuser chats from message controller
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send("Backend running 🚀");
 });
 
