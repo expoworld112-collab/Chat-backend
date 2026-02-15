@@ -1,6 +1,7 @@
 import express from "express";
-import { sendFriendRequest, acceptFriendRequest, rejectFriendRequest, getFriendData , getallContacts ,removeFriend } from "../controllers/friendController.js";
+import { sendFriendRequest, acceptFriendRequest, rejectFriendRequest, getFriendData  ,removeFriend } from "../controllers/friendController.js";
 import { protectRoute } from "../middleware/auth.middleware.js";
+import { getallContacts } from "../controllers/message.controllers.js";
 
 const router = express.Router();
 
