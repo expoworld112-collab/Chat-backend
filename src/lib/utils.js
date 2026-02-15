@@ -44,6 +44,7 @@ export const generateToken = (userId, res) => {
     httpOnly: true,
     sameSite: isProduction ? "none" : "lax", 
     secure: isProduction, 
+
   });
 
   return token;
