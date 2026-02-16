@@ -11,7 +11,6 @@ import { initSocket } from "./lib/socket.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import friendRequestRoutes from "./routes/friendRequestRoutes.js";
-import { protectRoute } from "./middleware/auth.middleware.js";
 
 const app = express();
 const server = http.createServer(app);
