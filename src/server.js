@@ -11,9 +11,10 @@ import { initSocket } from "./lib/socket.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import friendRequestRoutes from "./routes/friendRequestRoutes.js";
- app.set("trust proxy", 1);
 
 const app = express();
+app.set("trust proxy", 1);
+
 
 
 const server = http.createServer(app);
