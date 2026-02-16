@@ -9,12 +9,12 @@ const authRoutes = express.Router();
 console.log("AUTH ROUTES LOADED FROM THIS FILE");
 
 // Public
-authRoutes.post("/signup", arjectProtection, signup);
-authRoutes.post("/login", arjectProtection, login);
+authRoutes.post("/signup" , signup);
+authRoutes.post("/login", login);
 
 // Protected
-authRoutes.post("/logout", protectRoute, logout);
-authRoutes.put("/update-profile", protectRoute, upload.single("profilePic") , updateProfile);
-authRoutes.get("/check", protectRoute, checkAuth);
+authRoutes.post("/logout", protectRoute, arjectProtection ,logout);
+authRoutes.put("/update-profile", protectRoute, arjectProtection , upload.single("profilePic") , updateProfile);
+authRoutes.get("/check", protectRoute, arjectProtection , checkAuth);
 
 export default authRoutes;
