@@ -5,7 +5,8 @@ import { ENV } from "./env.js";
 export const aj = arcjet({
   key: ENV.ARCJET_KEY,
 
-  characteristics: ["ip.src" , "http.request.headers.user-agent"],
+  characteristics: [  "http.request.headers.x-forwarded-for",
+ , "http.request.headers.user-agent"],
 
   rules: [
     shield({ mode: "LIVE" }),

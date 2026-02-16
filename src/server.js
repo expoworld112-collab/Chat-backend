@@ -13,11 +13,13 @@ import messageRoutes from "./routes/message.route.js";
 import friendRequestRoutes from "./routes/friendRequestRoutes.js";
 
 const app = express();
+ app.set("trust proxy", 1);
+
+
 const server = http.createServer(app);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
- app.set("trust proxy", 1);
 
 // app.use(cors({
 //   origin: ENV.CLIENT_URL || "http://localhost:5173",
