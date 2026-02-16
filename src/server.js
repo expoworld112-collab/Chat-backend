@@ -19,8 +19,24 @@ const __dirname = path.dirname(__filename);
 
  app.set("trust proxy", 1);
 
+// app.use(cors({
+//   origin: ENV.CLIENT_URL || "http://localhost:5173",
+//   credentials: true,
+// }));
+
 app.use(cors({
-  origin: ENV.CLIENT_URL || "http://localhost:5173",
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (
+      origin.includes("vercel.app") ||
+      origin === "http://localhost:5173"
+    ) {
+      return callback(null, true);
+    }
+
+    callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 }));
 
