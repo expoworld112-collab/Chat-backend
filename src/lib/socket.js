@@ -5,7 +5,7 @@ import { socketAuthMiddleware } from "../middleware/socket.auth.middleware.js";
 let io;
 let userSocketMap = {};
 export const getReceiverSocketId = (userId) =>{
-  return userSocketMap = [userId] ;
+  return userSocketMap[userId] ;
 };
 export function initSocket(server) {
   io = new Server(server, {
@@ -18,10 +18,10 @@ export function initSocket(server) {
   io.use(socketAuthMiddleware);
 
   io.on("connection", (socket) => {
-    const userId = socket.handshake.query.userId;
+    // const userId = socket.handshake.query.userId;
+     const userId = socket.user._id.toString();
+          userSocketMap[userId] = socket.id;
 
-    if (userId) {userSocketMap[userId] = socket.id;
-  }
     io.emit("OnlineUsers", Object.keys(userSocketMap));
 
     socket.on("disconnect", () => {
