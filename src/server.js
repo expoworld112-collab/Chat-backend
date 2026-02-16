@@ -58,6 +58,8 @@ app.get("/", (_req, res) => {
 
 // ───────────────────────── socket attach ─────────────────────────
 initSocket(server);
+console.log("JWT_SECRET ON RENDER:", process.env.JWT_SECRET);
+console.log("NODE_ENV:", process.env.NODE_ENV);
 
 // ───────────────────────── start server ─────────────────────────
 const PORT = ENV.PORT || 4000;
