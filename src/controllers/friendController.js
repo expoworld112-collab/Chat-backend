@@ -6,7 +6,8 @@ import User from "../models/User.js";
 export const sendFriendRequest = async (req, res) => {
   try {
     const senderId = req.user._id;
-    const  receiverId  = req.params.id;
+    // const  receiverId  = req.params.id;
+    const receiverId = req.params.receiverId;
 
     if (senderId.toString()===(receiverId)) return res.status(400).json({ message: "You cannot add yourself" });
 
