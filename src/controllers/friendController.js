@@ -88,7 +88,10 @@ export const getFriendData = async (req, res) => {
 export const removeFriend = async (req , res )  => {
  try {
    const userId = req.user._id ;
-   const friendId = req.params.friendId;
+   const friendId = req.params;
+   if (!friendId) {
+      return res.status(400).json({ message: "Friend ID required" });
+    }
    await User.findByIdAndUpdate(userId,{
      $pull: {friends:friendId} ,
    

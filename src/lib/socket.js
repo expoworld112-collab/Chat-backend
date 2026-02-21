@@ -18,11 +18,11 @@ export function initSocket(server) {
   io.use(socketAuthMiddleware);
 
   io.on("connection", (socket) => {
-    // const userId = socket.handshake.query.userId;
+    // const userId = socket.handshake.auth.userId;
      const userId = socket.user._id.toString();
           userSocketMap[userId] = socket.id;
 
-    io.emit("OnlineUsers", Object.keys(userSocketMap));
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
     socket.on("disconnect", () => {
       // if (userId)
@@ -31,6 +31,7 @@ export function initSocket(server) {
     });
   });
 };
+
 
 
 export { io };
