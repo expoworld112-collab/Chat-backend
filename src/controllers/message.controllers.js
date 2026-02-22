@@ -126,7 +126,7 @@ export const sendMessage = async (req, res) => {
 
       fileUrl = upload.secure_url;
       fileType = file.mimetype;
-      fs.unlikeSync(file.path) ;
+      fs.unlinkSync(file.path) ;
     }
 
     const message = await Message.create({

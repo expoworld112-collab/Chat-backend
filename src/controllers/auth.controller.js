@@ -104,7 +104,7 @@ console.log("PASSWORD:", req.body.password);
 //   res.cookie("jwt", "", { maxAge: 0 });
 //   res.status(200).json({ message: "Logged out successfully" });
 // };
-export const logout = (_, res) => {
+export const logout = (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     secure: true,

@@ -13,7 +13,7 @@ authRoutes.post("/signup" , signup);
 authRoutes.post("/login", login);
 
 // Protected
-authRoutes.post("/logout", protectRoute, arjectProtection ,logout);
+authRoutes.post("/logout",logout);
 authRoutes.put("/update-profile", protectRoute, arjectProtection , upload.single("profilePic") , updateProfile);
 authRoutes.get("/check", protectRoute, arjectProtection , checkAuth);
 
