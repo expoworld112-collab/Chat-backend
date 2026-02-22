@@ -212,7 +212,7 @@ export const getUserChats = async (req, res) => {
 username: "$user.username",
 profilePic: "$user.profilePic",            
     lastMessage: 1 , 
-                lastMessageTime: 1
+                lastMessageTime: "$updatedAt"
             }
         },
          {$sort: {lastMessageTime:-1}}
